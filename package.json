@@ -3,17 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@mui/icons-material": "^5.11.0",
-    "@mui/material": "^5.11.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-error-boundary": "3.1.4",
-    "react-router-dom": "6.4.5",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "styled-components": "^5.3.6"
   },
   "scripts": {
     "start": "PORT=8000 react-app-rewired start",
@@ -45,11 +40,9 @@
     "@babel/register": "^7.18.9",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "alias-quokka-plugin": "^0.1.0",
     "esbuild-loader": "^2.20.0",
     "eslint": "^8.29.0",
     "eslint-plugin-react": "^7.31.11",
-    "jsdom-quokka-plugin": "^1.0.16",
     "react-app-rewired": "^2.2.1"
   }
 }

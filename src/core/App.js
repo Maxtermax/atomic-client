@@ -1,46 +1,71 @@
 import React, { useState } from "react";
-import { RouterProvider } from "react-router-dom";
-import CssBaseline from "@mui/material/CssBaseline";
-import Layout from "@components/Layout";
-import { ThemeProvider } from "@mui/material/styles";
-import { useObserver } from "@libs/hermes-io";
-import router from "@routes";
-import * as CONSTANTS from "@constants";
-import TranslationsContext from "@contexts/Translations";
-import ActionsContext from "@contexts/Actions";
-import buildTheme from "@factory/Theme";
-import buildTranslations from "@factory/Translations";
-import buildActions from "@factory/Actions";
-import * as actions from "@actions";
+import { ThemeProvider } from "styled-components";
+import Products from "@components/Products/Products"
+import ShoppingCar from "@components/ShoppingCar/ShoppingCar";
+import { useObserver } from "hermes-io";
+import ProductsObservers from '@observers/products';
+import theme from '@theme';
+import * as contexts from '@contexts';
 
-const defaultThemeMode = CONSTANTS.theme.modes.light;
-const translations = buildTranslations(CONSTANTS.LANGS.en);
-const themeActions = buildActions(actions.theme);
+const sneakerList = [
+  {
+    id: '1',
+    name: 'Jordan',
+    image: '/assets/images/jordan_3.webp',
+    description: 'Air Jordan 3 Retro OG',
+    price: '250'
+  },
+  {
+    id: '2',
+    image: '/assets/images/addidas.webp',
+    description: 'Bad Bunny Forum Buckle Low sneakers',
+    name: 'Adidas Forum',
+    price: '200'
+  },
+  {
+    id: '3',
+    image: '/assets/images/addidas.webp',
+    description: 'Bad Bunny Forum Buckle Low sneakers',
+    name: 'Adidas Forum',
+    price: '200'
+  }
+]
+
+const productsStore = new Map();
+productsStore.set('collection', sneakerList); 
+
+const filterSelectes = (collection) => collection.filter((item) => item.selected);
 
 function App() {
-  const [theme, setTheme] = useState(buildTheme(defaultThemeMode));
-  const themeListener = ({ value, from }) => {
-    console.log({ value, from });
-    setTheme(buildTheme(value));
+  const [products, setProducts] = useState(productsStore.get('collection'));
+  
+  const handleRemoveProduct = ({ value: product = {} }) => {
+    product.selected = false;
+    setProducts([...productsStore.get('collection')]);
   };
+  
+  const handleAddProduct = ({ value: product = {} }) => {
+    product.selected = true;
+    setProducts([...productsStore.get('collection')]);
+  };
+  
   useObserver({
-    observer: themeActions[actions.theme.change],
-    listener: themeListener,
-    from: [CONSTANTS.componentsMap.ThemeSelector],
+    observer: ProductsObservers.add,
+    listener: handleAddProduct,
+    contexts: [contexts.products],
   });
+  
+  useObserver({
+    observer: ProductsObservers.remove,
+    listener: handleRemoveProduct,
+    contexts: [contexts.shoppingCar, contexts.products],
+  });
+
   return (
-    <>
-      <CssBaseline />
-      <ThemeProvider theme={theme}>
-        <TranslationsContext.Provider value={translations}>
-          <ActionsContext.Provider value={{ theme: themeActions }}>
-            <Layout>
-              <RouterProvider router={router} />
-            </Layout>
-          </ActionsContext.Provider>
-        </TranslationsContext.Provider>
-      </ThemeProvider>
-    </>
+    <ThemeProvider theme={theme}>
+      <ShoppingCar data={filterSelectes(products)} />
+      <Products variant='grid' data={products} />
+    </ThemeProvider>
   );
 }
 

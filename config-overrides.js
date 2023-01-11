@@ -10,15 +10,15 @@ module.exports = {
         "@core": path.resolve(__dirname, "src/core"),
         "@views": path.resolve(__dirname, "src/core/views"),
         "@components": path.resolve(__dirname, "src/core/views/components"),
-        "@contexts": path.resolve(__dirname, "src/core/contexts"),
         "@factory": path.resolve(__dirname, "src/core/factory"),
         "@hooks": path.resolve(__dirname, "src/core/views/hooks"),
-        "@utils": path.resolve(__dirname, "src/core/utils"),
-        "@libs": path.resolve(__dirname, "src/libs"),
         "@constants": path.resolve(__dirname, "src/core/constants"),
-        "@translations": path.resolve(__dirname, "src/core/translations"),
+        "@contexts": path.resolve(__dirname, "src/core/contexts"),
+        "@observers": path.resolve(__dirname, "src/core/observers"),
         "@theme": path.resolve(__dirname, "src/core/theme"),
-        "@routes": path.resolve(__dirname, "src/core/routes"),
+        "@src": path.resolve(__dirname, "src"),
+        "hermes-io": path.resolve(__dirname, "../../"),
+        "react": path.resolve(__dirname, "../../node_modules/react"),
       },
     };
     config.module.rules.push({
@@ -29,6 +29,7 @@ module.exports = {
         target: "es2020",
       },
     });
+    console.log(JSON.stringify(config));
     return config;
   },
 };

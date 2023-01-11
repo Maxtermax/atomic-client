@@ -1,15 +1,4 @@
-export const theme = {
-  modes: {
-    dark: "DARK",
-    light: "LIGHT",
-  }
-};
-
-export const LANGS = {
-  en: 'ENGLISH',
-  es: 'SPANISH',
-};
-
-export const componentsMap = {
-  ThemeSelector: 'THEME_SELECTOR',
+export const PRODUCTS_NOTIFIER_LIST = {
+  SHOPPING_CAR: 'shopping-car',
+  PRODUCTS: 'produtcs'
 };

@@ -1,3 +1,3 @@
-import { Observer } from '@libs/hermes-io';
+import { Observer } from 'hermes-io';
 const observerFactory = () => new Observer();
 export default observerFactory;

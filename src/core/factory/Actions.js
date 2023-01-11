@@ -1,4 +1,4 @@
-import { Observer } from '@libs/hermes-io';
+import { Observer } from 'hermes-io';
 
 const actionsFactory =(actions = {}) => Object.values(actions).reduce((accumulator, key) => {
   accumulator[key] = new Observer();
